@@ -1,70 +1,69 @@
-//以单链表作为存储结构，实现线性表的就地逆置
 #include<iostream>
 #include<vector>
 using namespace std;
 
-class LinkList{
-private:
-    struct Node{
+struct Node{
         int data;
         Node* next;
         Node(int value):data(value),next(NULL) {}
     };
-    Node* head;
 
+class LinkList{
+private:
+    Node* head;
 public:
-    LinkList():head(NULL) {}
+    LinkList():head(nullptr) {}
     ~LinkList(){
-        Node* current=head;
-        while(current!=NULL){
-            Node* temp=current;
-            current=current->next;
+        Node* cur=head;
+        while(cur!=nullptr){
+            Node* temp=cur;
+            cur=cur->next;
             delete temp;
         }
     }
 
-    void insert(int value){
-        Node* newNode=new Node(value);
-        if(head==NULL){
+    void add(int val){
+        Node* newNode=new Node(val);
+        if(head==nullptr){
             head=newNode;
         }else{
-            Node* current=head;
-            while(current->next!=NULL){
-                current=current->next;
+            Node* cur=head;
+            while(cur->next!=nullptr){
+                cur=cur->next;
             }
-            current->next=newNode;
+            cur->next=newNode;
         }
     }
 
     void reverse(){
-        Node* prev=NULL;
-        Node* current=head;
-        Node* next=NULL;
-        while(current!=NULL){
-            next=current->next;
-            current->next=prev;
-            prev=current;
-            current=next;
+        Node* prev=nullptr;
+        Node* cur=head;
+        Node* next=nullptr;
+        while(cur!=nullptr){
+            next=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
         }
         head=prev;
     }
 
-    void input(const vector<int>& vec){
-        for (int value : vec) {
-            insert(value);
+    void create(const vector<int>& vec){
+        for (int val : vec) {
+            add(val);
         }
     }
 
     void printList(){
-        Node* current=head;
-        while(current!=NULL){
-            cout<<current->data<<" ";
-            current=current->next;
+        Node* cur=head;
+        while(cur!=NULL){
+            cout<<cur->data<<" ";
+            cur=cur->next;
         }
         cout<<endl;
     }
 
-    void compare(){
+    void display(){
         cout<<"Before List: ";
         this->printList();
         this->reverse();
@@ -76,8 +75,8 @@ public:
 int main(){
     vector<int> vector={1,2,3,4,5,6,7,8,9,10};
     LinkList List;
-    List.input(vector);
-    List.compare();
+    List.create(vector);
+    List.display();
 
     return 0;
 }
